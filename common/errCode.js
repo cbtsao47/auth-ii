@@ -7,7 +7,7 @@ module.exports = {
   notFound: 404,
   failed: res => {
     res
-      .status(this.internalServerError)
+      .status(500)
       .json({ message: "There is something wrong with the server" });
   }
 };

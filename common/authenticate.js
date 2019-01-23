@@ -30,5 +30,13 @@ module.exports = {
     };
     return jwt.sign(payload, secret, options);
   },
-  checkDepartment: department => {}
+  checkDepartment: department => {
+    return (req, res, next) => {
+      if (req.decodedToken.department.includes(department)) {
+        next();
+      } else {
+        res.status(401).json({ message: "you are not a math person" });
+      }
+    };
+  }
 };
