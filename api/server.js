@@ -43,7 +43,7 @@ server.post("/login", async (req, res) => {
 server.get(
   "/users",
   authenticate.protected,
-  authenticate.checkDepartment("math"),
+  authenticate.checkDepartment("admin"),
   async (req, res) => {
     try {
       const users = await db("users");
