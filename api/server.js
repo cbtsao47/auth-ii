@@ -41,10 +41,10 @@ server.post("/login", async (req, res) => {
   }
 });
 
-server.get("/users", async (req, res) => {
+server.get("/users", authenticate.protected, async (req, res) => {
   try {
-    const query = await db("users");
-    res.status(code.okay).json(query);
+    const users = await db("users");
+    res.status(code.okay).json({ users, token: req.decodedToken });
   } catch (err) {
     code.failed(res);
   }
