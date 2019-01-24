@@ -20,6 +20,7 @@ class Login extends React.Component {
       .then(res => {
         localStorage.setItem("JWT", res.data.token);
         localStorage.setItem("UserId", res.data.userId);
+        this.props.handleLogIn();
         this.props.history.push("/users");
       })
       .catch(err => console.error(err));

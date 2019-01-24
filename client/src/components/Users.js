@@ -16,7 +16,6 @@ class Users extends React.Component {
         }
       };
       const users = await axios.get(`${URL}/users`, requestOptions);
-      console.log(users, "users");
       this.setState({
         users: users.data.users
       });
@@ -25,18 +24,22 @@ class Users extends React.Component {
     }
   }
   render() {
-    return (
-      <>
-        <h2>List of Users</h2>
-        <ul>
-          {this.state.users.map(user => (
-            <li key={user.username}>
-              User:{user.username} Department:{user.department}
-            </li>
-          ))}
-        </ul>
-      </>
-    );
+    if (this.props.isLoggedIn) {
+      return (
+        <>
+          <h2>List of Users</h2>
+          <ul>
+            {this.state.users.map(user => (
+              <li key={user.username}>
+                User:{user.username} Department:{user.department}
+              </li>
+            ))}
+          </ul>
+        </>
+      );
+    } else {
+      return <Login />;
+    }
   }
 }
 
