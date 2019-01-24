@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Login from "./auth/Login";
 
 class Users extends React.Component {
   state = {
@@ -9,10 +10,15 @@ class Users extends React.Component {
     const URL = process.env.REACT_APP_API_URL;
     try {
       const token = localStorage.getItem("JWT");
-      const users = await axios.post(`${URL}/users`, token);
-      console.log("users", users);
+      const requestOptions = {
+        headers: {
+          authorization: token
+        }
+      };
+      const users = await axios.get(`${URL}/users`, requestOptions);
+      console.log(users, "users");
       this.setState({
-        users: users.data
+        users: users.data.users
       });
     } catch (err) {
       console.error(err);
@@ -24,10 +30,9 @@ class Users extends React.Component {
         <h2>List of Users</h2>
         <ul>
           {this.state.users.map(user => (
-            <>
-              <li>{user.username}</li>
-              <li>{user.department}</li>
-            </>
+            <li key={user.username}>
+              User:{user.username} Department:{user.department}
+            </li>
           ))}
         </ul>
       </>

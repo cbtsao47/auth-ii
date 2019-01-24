@@ -1,11 +1,11 @@
 import React from "react";
 import axios from "axios";
 
-class LoginSignup extends React.Component {
+class Login extends React.Component {
   state = {
     username: "",
     password: "",
-    loggedIn: false
+    department: ""
   };
   handleChange = e => {
     this.setState({
@@ -18,9 +18,9 @@ class LoginSignup extends React.Component {
     axios
       .post(`${URL}/login`, this.state)
       .then(res => {
-        console.log(res.data);
         localStorage.setItem("JWT", res.data.token);
         localStorage.setItem("UserId", res.data.userId);
+        this.props.history.push("/users");
       })
       .catch(err => console.error(err));
   };
@@ -46,4 +46,4 @@ class LoginSignup extends React.Component {
     );
   }
 }
-export default LoginSignup;
+export default Login;
